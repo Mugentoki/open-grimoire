@@ -1,7 +1,11 @@
+type GrimoireConfig = {
+    test: string;
+}
+
 export async function readOrWriteConfig(workspaceHandle: FileSystemDirectoryHandle) {
     try {
         const configName = 'grimoire.json';
-        let config = {
+        let config: GrimoireConfig = {
             test: 'test'
         }
         const configFileHandle = await workspaceHandle.getFileHandle(configName, { create: true });
@@ -10,7 +14,7 @@ export async function readOrWriteConfig(workspaceHandle: FileSystemDirectoryHand
         if (configFile.size > 0 && configFile.type === 'application/json') {
             // read content and check if the type is GrimoireConfig
             const configContent = await configFile.text();
-            const loadedConfig = JSON.parse(configContent);
+            const loadedConfig = JSON.parse(configContent) as GrimoireConfig;
             config = mergeConfig(config, loadedConfig);
         }
 
@@ -25,22 +29,6 @@ export async function readOrWriteConfig(workspaceHandle: FileSystemDirectoryHand
     }
 }
 
-function mergeConfig(obj1, obj2) {
-    const result = { ...obj1 }; // Create a shallow copy of obj1
-
-    for (const key in obj2) {
-        if (
-            obj2[key] &&
-            typeof obj2[key] === "object" &&
-            !Array.isArray(obj2[key])
-        ) {
-            // Recursively merge objects
-            result[key] = deepMerge(obj1[key] || {}, obj2[key]);
-        } else {
-            // Otherwise, assign value from obj2
-            result[key] = obj2[key];
-        }
-    }
-
-    return result;
+function mergeConfig(obj1: GrimoireConfig, obj2: GrimoireConfig): GrimoireConfig {
+    return structuredClone({ ...obj1, ...obj2 });
 }
