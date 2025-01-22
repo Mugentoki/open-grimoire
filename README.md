@@ -101,3 +101,20 @@ Holds configurations for the entity type, as well as a default configuration for
 - Are global and can be used in multiple Entities
 - Properties: Name, Type, Value ...
 - Can be for example a select, input, multiselect ...
+
+### Flowchart of functionality
+```mermaid
+flowchart TD
+    A[App Start] --> B{First time?}
+    B -- Yes --> C[User will see\n Setup Wizard,\nChoose Workspace]
+    C --> D[Dashboard with Projects]
+    B -- No ----> D
+    D -- Selects / Creates Project --> E[Project View with all Entities,\nEntities are listed and can be opened as dropdown]
+    E -- Create new Entity --> F[View to fill all entity details]
+    F --> E
+    E -- Selects Entity-Item --> G[View to edit Entity-Item]
+    E -- Create new Entity-Item --> H[View to fill all entity details]
+    H --> G
+    D -- Resets first time --> C
+    E -- Back to Dashboard --> D
+```
