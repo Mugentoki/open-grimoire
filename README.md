@@ -73,12 +73,14 @@ Holds configurations for the entity type, as well as a default configuration for
 - Will probably be a class
 - Contains Workspace configurations, persisted into `/workspace-directory/grimoire.json`
 - Holds all Projects as an array
+- Opening a Workspace will load all projects (no entities)
 
 **Project**
 - Will be a class
-- Properties: Name, Entities, Image
+- Properties: Name, Entities, Image, AttributeDefinitions
 - Name = project folder
 - Image = project.png
+- Opening a Project will load all Entities
 
 **Entity**
 - Will be a class
