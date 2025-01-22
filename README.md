@@ -1,6 +1,11 @@
 # open-grimoire
 An open source editor for world building and writing books
 
+## Installation
+> [!IMPORTANT]  
+> **Currently there's no installer available!**<br>
+> For now you have to clone the repository and run the development setup and build the app yourself.
+
 ## Development Setup
 ```shell
 # install dependencies
@@ -20,7 +25,7 @@ npm run electron:serve
 ```
 
 > [!NOTE]  
-> Currently `electron:serve` does not work together with `pwa:dev`.
+> `electron:serve` does not work together with `pwa:dev`.<br>
 > You have to run `pwa:build` and then `electron:serve` to test the electron app.
 
 ## Notes for development
@@ -56,3 +61,41 @@ Holds configurations for the app itself (like the location of the projects)
 
 **entity_config.json**<br>
 Holds configurations for the entity type, as well as a default configuration for new entities
+
+### Possible classes and their purpose
+**App**
+- Basically handled by VueJS and Pinia store (`src/stores/grimoire.ts'), no additional class needed
+- Holds configurations for the app itself (like the location of the projects, theme etc.)
+- We'll use IndexedDB for this config (add a note, that PWA should be used with chrome)
+- Holds the `FileSystemDirectoryHandle` for the workspace folder
+
+**Workspace**
+- Will probably be a class
+- Contains Workspace configurations, persisted into `/workspace-directory/grimoire.json`
+- Holds all Projects as an array
+
+**Project**
+- Will be a class
+- Properties: Name, Entities, Image
+- Name = project folder
+- Image = project.png
+
+**Entity**
+- Will be a class
+- Properties: Name, Type, EntityItems, DefaultTemplate
+- Each entity will have it's own config json file which holds default templates for new entities
+
+**EntityItem**
+- Will be a class
+- Properties: Name, Components
+- Each Entity will be saved as a JSON file in the entity folder
+
+**Component**
+- Will be a class
+- Properties: Name, Attributes
+
+**Attribute**
+- Will be a class
+- Are global and can be used in multiple Entities
+- Properties: Name, Type, Value ...
+- Can be for example a select, input, multiselect ...
