@@ -1,19 +1,11 @@
 <template>
-  <div>
-    <div>
-      <a href="https://vite.dev" target="_blank">
-        <img src="/assets/images/vite.svg" class="logo" alt="Vite logo" />
-      </a>
-      <a href="https://vuejs.org/" target="_blank">
-        <img src="/assets/images/vue.svg" class="logo vue" alt="Vue logo" />
-      </a>
-    </div>
-    <HelloWorld msg="Vite + Vue" />
-  </div>
+  <PageContainer>
+    blah
+  </PageContainer>
 </template>
 
 <script setup lang="ts">
-  import HelloWorld from "../components/HelloWorld.vue";
+ import PageContainer from "../components/common/PageContainer.vue";
 </script>
 
 <style scoped>

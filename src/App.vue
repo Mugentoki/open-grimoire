@@ -17,3 +17,15 @@ onBeforeMount(() => {
   }
 })
 </script>
+
+<style lang="scss">
+#app {
+  width: 100dvw;
+  max-width: unset;
+  height: 100dvh;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 20px;
+  text-align: left;
+}
+</style>
