@@ -1,0 +1,12 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg">
+<metadata>Copyright (C) 2025 by original authors @ fontello.com</metadata>
+<defs>
+<font id="grimoire" horiz-adv-x="1000" >
+<font-face font-family="grimoire" font-weight="400" font-stretch="normal" units-per-em="1000" ascent="850" descent="-150" />
+<missing-glyph horiz-adv-x="1000" />
+<glyph glyph-name="workspace" unicode="&#xe800;" d="M750-88l94 0c22 0 43 12 54 32l218 375c12 19 12 43 1 62s-32 32-54 32l-782 0c-22 0-42-12-54-32l-133-228 0 510c0 17 14 31 31 31l230 0c8 0 16-4 22-9l51-52c41-41 97-64 155-64l230 0c17 0 31-14 31-31l0-63 94 0 0 63c0 68-57 125-125 125l-230 0c-33 0-65 13-88 36l-52 52c-24 23-55 37-89 37l-229 0c-69 0-125-57-125-125l0-625c0-69 56-126 125-126l46 0 579 0z" horiz-adv-x="1125" />
+</font>
+</defs>
+</svg>

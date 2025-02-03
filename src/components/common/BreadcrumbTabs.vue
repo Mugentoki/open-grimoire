@@ -1,7 +1,6 @@
 <template>
   <div class="breadcrumbs" v-if="viewType !== ''">
-    <div class="breadcrumb">One Tab</div>
-    <div class="breadcrumb active">Second Tab</div>
+
   </div>
 </template>
 
