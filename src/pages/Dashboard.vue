@@ -1,6 +1,6 @@
 <template>
   <PageContainer>
-    blah
+Dashboard
   </PageContainer>
 </template>
 

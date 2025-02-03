@@ -1,12 +1,14 @@
 type GrimoireConfig = {
-    test: string;
+    workspaceTitle: string;
+    workspaceDescription: string;
 }
 
 export async function readOrWriteConfig(workspaceHandle: FileSystemDirectoryHandle) {
     try {
         const configName = 'grimoire.json';
         let config: GrimoireConfig = {
-            test: 'test'
+            workspaceTitle: 'My Workspace',
+            workspaceDescription: 'Here you can add a description for your workspace.'
         }
         const configFileHandle = await workspaceHandle.getFileHandle(configName, { create: true });
         const configFile = await configFileHandle.getFile();

@@ -7,6 +7,10 @@
   }
 }
 
+html:root {
+  background-color: var(--background-color);
+}
+
 html {
   font-size: 62.5%; // sets 1rem = 10px
   -webkit-font-smoothing: antialiased;

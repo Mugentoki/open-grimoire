@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import {ref, computed, nextTick} from 'vue';
 import { useRouter } from 'vue-router';
 import { useGrimoireStore } from "../stores/grimoire";
 import { readOrWriteConfig } from "../utils/grimoireConfig.ts";
@@ -52,6 +52,8 @@ async function finishSetup() {
     const configCreatedSuccessfully = await readOrWriteConfig(grimoireStore.getWorkspaceDirectoryHandle);
     if (configCreatedSuccessfully) {
       grimoireStore.setInitialSetupDone();
+      grimoireStore.setViewType('workspace');
+
       router.push('/');
     }
   }

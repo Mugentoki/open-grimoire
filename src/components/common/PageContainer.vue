@@ -16,6 +16,8 @@ defineProps<{
 #page-container {
   width: 100%;
   height: 100%;
+  padding: var(--base-spacing);
+  grid-area: routerview;
 
   &.center {
     text-align: center;
