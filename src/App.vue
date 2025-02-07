@@ -9,7 +9,7 @@ import {onBeforeMount} from 'vue';
 import { RouterView } from "vue-router";
 import { useRouter } from 'vue-router';
 import { useGrimoireStore } from "./stores/grimoire";
-import SideNavigation from "./components/common/SideNavigation.vue";
+import SideNavigation from "./components/sidenavigation/SideNavigation.vue";
 import BreadcrumbTabs from "./components/common/BreadcrumbTabs.vue";
 
 const grimoireStore = useGrimoireStore();
@@ -32,8 +32,9 @@ onBeforeMount(() => {
   margin: 0;
   padding: 0;
   text-align: left;
+  overflow: hidden;
   display: grid;
-  grid-template-columns: calc(48px + var(--base-spacing) * 2 + var(--base-border-width)) auto;
+  grid-template-columns: calc(var(--closed-menu-width) + var(--base-spacing) * 2 + var(--base-border-width)) auto;
   grid-template-rows: 48px auto;
   grid-auto-columns: 1fr;
   grid-auto-rows: 1fr;
