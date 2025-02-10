@@ -24,10 +24,10 @@
 </template>
 
 <script setup lang="ts">
-import {ref, computed, nextTick} from 'vue';
+import {ref, computed} from 'vue';
 import { useRouter } from 'vue-router';
 import { useGrimoireStore } from "../stores/grimoire";
-import { readOrWriteConfig } from "../utils/grimoireConfig.ts";
+import {initConfig} from "../utils/grimoireConfig.ts";
 import PageContainer from "../components/common/PageContainer.vue";
 
 import type { Ref, ComputedRef } from 'vue';
@@ -49,7 +49,7 @@ async function finishSetup() {
   const workspaceHandle = grimoireStore.getWorkspaceDirectoryHandle;
 
   if (workspaceHandle) {
-    const configCreatedSuccessfully = await readOrWriteConfig(grimoireStore.getWorkspaceDirectoryHandle);
+    const configCreatedSuccessfully = await initConfig(grimoireStore.getWorkspaceDirectoryHandle);
     if (configCreatedSuccessfully) {
       grimoireStore.setInitialSetupDone();
       grimoireStore.setViewType('workspace');
