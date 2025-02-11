@@ -1,11 +1,11 @@
 <template>
   <PageContainer>
 Dashboard
-   <transition name="popup">
-     <Popup v-if="showWorkspaceSettings" title="Workspace Settings">
+   <Transition name="popup">
+     <Popup v-if="showWorkspaceSettings" title="Workspace Settings" @close="hideWorkspaceSettings">
        some content
      </Popup>
-   </transition>
+   </Transition>
   </PageContainer>
 </template>
 
@@ -20,6 +20,10 @@ Dashboard
  const showWorkspaceSettings = computed(() => {
    return grimoireStore.getWorkspaceConfigPopupVisible;
  });
+
+ const hideWorkspaceSettings = () => {
+   grimoireStore.hideWorkspacePopup();
+ }
 </script>
 
 <style scoped>

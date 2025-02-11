@@ -1,0 +1,9 @@
+.popup-enter-from,
+.popup-leave-to {
+  opacity: 0;
+}
+
+.popup-enter-active,
+.popup-leave-active {
+  transition: opacity var(--base-transition);
+}

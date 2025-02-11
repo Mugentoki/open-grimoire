@@ -52,6 +52,10 @@ export const useGrimoireStore = defineStore('grimoire', () => {
         workspaceConfigPopupVisible.value = false;
     }
 
+    function toggleWorkspacePopup() {
+        workspaceConfigPopupVisible.value = !workspaceConfigPopupVisible.value;
+    }
+
     return {
         workspaceDirectoryHandle,
         initialSetupDone,
@@ -71,7 +75,8 @@ export const useGrimoireStore = defineStore('grimoire', () => {
         setViewType,
         setWorkspaceConfig,
         showWorkspacePopup,
-        hideWorkspacePopup
+        hideWorkspacePopup,
+        toggleWorkspacePopup
     };
 }, {
     persist: {

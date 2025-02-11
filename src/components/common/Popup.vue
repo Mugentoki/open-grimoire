@@ -13,7 +13,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from "vue";
 
 const {width = 350, height = 350} = defineProps<{
   title?: string;
@@ -25,7 +24,10 @@ const {width = 350, height = 350} = defineProps<{
 <style lang="scss">
 .popup {
   position: absolute;
-  background: green;
+  background-color: var(--background-color);
+  border-radius: var(--border-radius-large);
+  border: 2px solid var(--base-border-color);
+  box-shadow: var(--box-shadow);
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -37,6 +39,12 @@ const {width = 350, height = 350} = defineProps<{
     font-size: var(--font-size-menu);
     display: flex;
     align-items: flex-end;
+    border-bottom: 2px solid var(--base-border-color);
+    padding-bottom: var(--spacing-small);
+  }
+
+  &__header-title {
+    flex-grow: 1;
   }
 }
 </style>

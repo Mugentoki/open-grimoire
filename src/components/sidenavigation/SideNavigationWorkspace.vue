@@ -20,8 +20,7 @@ const workspaceDetails = computed(() => {
 });
 
 const showWorkspaceSettings = () => {
-  console.log("show workspace settings");
-  grimoireStore.showWorkspacePopup();
+  grimoireStore.toggleWorkspacePopup();
 }
 </script>
 

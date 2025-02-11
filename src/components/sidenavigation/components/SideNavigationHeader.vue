@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import SideNavigationMenuItem from "./SideNavigationMenuItem.vue";
-import { defineProps, ref, inject, computed } from "vue";
+import { ref, inject, computed } from "vue";
 
 defineProps<{
   headerIcon?: string;
