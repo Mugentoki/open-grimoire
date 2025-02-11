@@ -3,27 +3,31 @@
 Dashboard
    <Transition name="popup">
      <Popup v-if="showWorkspaceSettings" title="Workspace Settings" @close="hideWorkspaceSettings">
-       some content
+       <TextInput placeholder="Workspace Name" v-model="workspaceConfig.workspaceTitle"/>
      </Popup>
    </Transition>
   </PageContainer>
 </template>
 
 <script setup lang="ts">
- import PageContainer from "../components/common/PageContainer.vue";
- import Popup from "../components/common/Popup.vue";
- import {useGrimoireStore} from "../stores/grimoire.ts";
- import { computed } from "vue";
+import { storeToRefs } from "pinia";
+import PageContainer from "../components/common/PageContainer.vue";
+import Popup from "../components/common/Popup.vue";
+import TextInput from "../components/form/TextInput.vue";
+import {useGrimoireStore} from "../stores/grimoire.ts";
+import { computed, ref } from "vue";
 
- const grimoireStore = useGrimoireStore();
+const grimoireStore = useGrimoireStore();
 
- const showWorkspaceSettings = computed(() => {
-   return grimoireStore.getWorkspaceConfigPopupVisible;
- });
+const showWorkspaceSettings = computed(() => {
+  return grimoireStore.getWorkspaceConfigPopupVisible;
+});
 
- const hideWorkspaceSettings = () => {
-   grimoireStore.hideWorkspacePopup();
- }
+const { workspaceConfig } = storeToRefs(grimoireStore);
+
+const hideWorkspaceSettings = () => {
+  grimoireStore.hideWorkspacePopup();
+}
 </script>
 
 <style scoped>
