@@ -46,7 +46,7 @@ onBeforeMount(() => {
   transition: grid-template-columns 300ms ease-in-out;
 
   &:has(> .sidenav:hover) {
-    grid-template-columns: 256px auto;
+    grid-template-columns: 300px auto;
   }
 }
 </style>

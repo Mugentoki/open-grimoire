@@ -16,6 +16,8 @@ defineProps<{
   height: 100%;
   padding: var(--base-spacing);
   grid-area: routerview;
+  position: relative;
+  z-index: 0;
 
   &.center {
     text-align: center;

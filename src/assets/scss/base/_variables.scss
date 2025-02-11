@@ -1,19 +1,27 @@
 :root {
-  --icon-font: "grimoire";
   --base-spacing: 20px;
   --spacing-small: 8px;
+
+  --background-color: #242424;
   --base-border-color: #2b2b2b;
   --base-border-color-darken: color-mix(in srgb, var(--base-border-color) 80%, black);
-  --base-border-width: 2px;
-  --background-color: #242424;
   --background-color-darken: color-mix(in srgb, var(--background-color) 80%, black);
+
+  --icon-font: "grimoire";
+  --font-size-base: 1.6rem;
+  --font-size-menu: 2rem;
+
+  --base-border-width: 2px;
+
   --border-radius-small: 2px;
   --border-radius-medium: 4px;
   --border-radius-large: 8px;
+
   --base-transition-speed: .3s;
   --transition-speed-fast: .15s;
   --transistion-speed-blink: .05s;
   --base-transition-function: ease-in-out;
   --base-transition: var(--base-transition-speed) var(--base-transition-function);
+
   --closed-menu-width: 32px;
 }

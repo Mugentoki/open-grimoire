@@ -12,12 +12,14 @@ export const useGrimoireStore = defineStore('grimoire', () => {
     const initialSetupDone: Ref<boolean> = ref(false);
     const currentViewType: Ref<ViewType> = ref('');
     const workspaceConfig: Ref<WorkspaceConfig> = ref(workspaceBaseConfig);
+    const workspaceConfigPopupVisible: Ref<boolean> = ref(false);
 
     // getters
     const getWorkspaceDirectoryHandle: ComputedRef<FileSystemDirectoryHandle|null> = computed(() => workspaceDirectoryHandle.value);
     const isInitialSetupDone: ComputedRef<boolean> = computed(() => initialSetupDone.value);
     const getCurrentViewType: ComputedRef<ViewType> = computed(() => currentViewType.value);
     const getWorkspaceConfig: ComputedRef<WorkspaceConfig> = computed(() => workspaceConfig.value);
+    const getWorkspaceConfigPopupVisible: ComputedRef<boolean> = computed(() => workspaceConfigPopupVisible.value);
 
     // actions
     function selectWorkspacePath() {
@@ -42,27 +44,40 @@ export const useGrimoireStore = defineStore('grimoire', () => {
         workspaceConfig.value = config;
     }
 
+    function showWorkspacePopup() {
+        workspaceConfigPopupVisible.value = true;
+    }
+
+    function hideWorkspacePopup() {
+        workspaceConfigPopupVisible.value = false;
+    }
+
     return {
         workspaceDirectoryHandle,
         initialSetupDone,
         currentViewType,
         workspaceConfig,
+        workspaceConfigPopupVisible,
 
         getWorkspaceDirectoryHandle,
         isInitialSetupDone,
         getCurrentViewType,
         getWorkspaceConfig,
+        getWorkspaceConfigPopupVisible,
 
         selectWorkspacePath,
         setInitialSetupDone,
         resetInitialSetup,
         setViewType,
-        setWorkspaceConfig
+        setWorkspaceConfig,
+        showWorkspacePopup,
+        hideWorkspacePopup
     };
 }, {
     persist: {
         omit: [
-            'workspaceDirectoryHandle'
+            'workspaceDirectoryHandle',
+            'workspaceConfigPopupVisible'
         ]
     }
 });

@@ -1,12 +1,16 @@
 <template>
-  <div class="sidenav__container" :class="navigationName">
+  <div class="sidenav__container" :class="{
+    navigationName,
+    'with-header': withHeader
+  }">
     <slot></slot>
   </div>
 </template>
 
 <script setup lang="ts">
-defineProps<{
+const { withHeader = false } = defineProps<{
   navigationName?: string;
+  withHeader?: boolean
 }>()
 </script>
 
@@ -15,5 +19,10 @@ defineProps<{
   display: flex;
   flex-direction: column;
   gap: var(--spacing-small);
+  padding-top: 48px;
+
+  &.with-header {
+    padding-top: 0;
+  }
 }
 </style>

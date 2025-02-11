@@ -1,6 +1,6 @@
 <template>
   <div class="sidenav__menu-item" :class="iconSize">
-    <i class="sidenav__menu-icon" :class="iconName"/>
+    <i v-if="iconName" class="sidenav__menu-icon" :class="iconName"/>
     <span class="sidenav__menu-label">{{ label }}</span>
   </div>
 </template>
@@ -18,6 +18,11 @@ defineProps<{
   &:hover {
     .sidenav__menu-icon {
       opacity: 1;
+
+      &:before {
+        font-size: var(--closed-menu-width);
+        line-height: var(--closed-menu-width);
+      }
     }
 
     .sidenav__menu-label {
@@ -29,6 +34,7 @@ defineProps<{
     display: flex;
     align-items: center;
     gap: 8px;
+    cursor: pointer;
 
     &.small {
       .sidenav__menu-icon {
@@ -44,11 +50,15 @@ defineProps<{
   &__menu-icon {
     opacity: .5;
     transition: opacity var(--base-transition);
+    width: var(--closed-menu-width);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &:before {
-      font-size: var(--closed-menu-width);
-      line-height: var(--closed-menu-width);
-      width: var(--closed-menu-width);
+      font-size: calc(var(--closed-menu-width) / 2);
+      line-height: calc(var(--closed-menu-width) / 2);
+      transition: all var(--base-transition);
     }
   }
 
@@ -57,6 +67,7 @@ defineProps<{
     text-overflow: ellipsis;
     white-space: nowrap;
     flex: 0;
+    font-size: var(--font-size-menu);
     transition: flex var(--base-transition);
   }
 }
