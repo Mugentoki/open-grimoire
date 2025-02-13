@@ -24,16 +24,15 @@
 </template>
 
 <script setup lang="ts">
-import {ref, computed} from 'vue';
-import { useRouter } from 'vue-router';
+import { ref, computed } from 'vue';
 import { useGrimoireStore } from "../stores/grimoire";
-import {initConfig} from "../utils/grimoireConfig.ts";
 import PageContainer from "../components/common/PageContainer.vue";
+import { useFinishSetup } from "../composables/workspace.ts";
 
 import type { Ref, ComputedRef } from 'vue';
 
-const router = useRouter();
 const grimoireStore = useGrimoireStore();
+const { finishSetup } = useFinishSetup();
 const initialSetupStep: Ref<number> = ref(1);
 const workspaceSelected: ComputedRef<boolean> = computed(() => grimoireStore.getWorkspaceDirectoryHandle !== null);
 
@@ -43,20 +42,6 @@ function selectWorkspaceFolder() {
 
 function nextStep() {
   initialSetupStep.value++;
-}
-
-async function finishSetup() {
-  const workspaceHandle = grimoireStore.getWorkspaceDirectoryHandle;
-
-  if (workspaceHandle) {
-    const configCreatedSuccessfully = await initConfig(grimoireStore.getWorkspaceDirectoryHandle);
-    if (configCreatedSuccessfully) {
-      grimoireStore.setInitialSetupDone();
-      grimoireStore.setViewType('workspace');
-
-      router.push('/');
-    }
-  }
 }
 </script>
 

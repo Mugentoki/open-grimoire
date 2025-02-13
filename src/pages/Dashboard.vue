@@ -4,6 +4,7 @@ Dashboard
    <Transition name="popup">
      <Popup v-if="showWorkspaceSettings" title="Workspace Settings" @close="hideWorkspaceSettings">
        <TextInput placeholder="Workspace Name" v-model="workspaceConfig.workspaceTitle"/>
+       <TextAreaInput placeholder="Workspace Description" v-model="workspaceConfig.workspaceDescription"/>
      </Popup>
    </Transition>
   </PageContainer>
@@ -15,7 +16,8 @@ import PageContainer from "../components/common/PageContainer.vue";
 import Popup from "../components/common/Popup.vue";
 import TextInput from "../components/form/TextInput.vue";
 import {useGrimoireStore} from "../stores/grimoire.ts";
-import { computed, ref } from "vue";
+import { computed } from "vue";
+import TextAreaInput from "../components/form/TextAreaInput.vue";
 
 const grimoireStore = useGrimoireStore();
 
@@ -31,16 +33,5 @@ const hideWorkspaceSettings = () => {
 </script>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
+
 </style>

@@ -21,3 +21,12 @@ pinia.use(piniaPluginPersistedstate);
 app.use(pinia)
 app.use(router)
 app.mount('#app')
+
+// give the user a warning before leaving the page
+// user has to reselect workspace after reloading / closing the window
+if (!import.meta.env.DEV) {
+    window.addEventListener('beforeunload', (event) => {
+        event.preventDefault();
+        event.returnValue = '';
+    });
+}

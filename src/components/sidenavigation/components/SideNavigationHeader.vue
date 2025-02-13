@@ -46,7 +46,7 @@ const toggleExtra = () => {
   }
 
   &__header {
-    margin-bottom: var(--base-spacing);
+    margin-bottom: var(--spacing-small);
   }
 
   &__header-title {

@@ -1,17 +1,11 @@
 <template>
-  <div class="breadcrumbs" v-if="viewType !== ''">
+  <div class="breadcrumbs">
 
   </div>
 </template>
 
 <script setup lang="ts">
-import {computed} from "vue";
-import {useGrimoireStore} from "../../stores/grimoire.ts";
 
-const grimoireStore = useGrimoireStore();
-const viewType = computed(() => {
-  return grimoireStore.getCurrentViewType;
-});
 </script>
 
 <style lang="scss">

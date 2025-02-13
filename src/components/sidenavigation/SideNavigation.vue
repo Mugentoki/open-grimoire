@@ -1,19 +1,15 @@
 <template>
-  <div class="sidenav" v-if="viewType !== ''" @mouseenter="navOpen = true" @mouseleave="navOpen = false">
-    <SideNavigationWorkspace v-if="viewType === 'workspace'"/>
+  <div class="sidenav" @mouseenter="navOpen = true" @mouseleave="navOpen = false">
+    <SideNavigationWorkspace v-if="route.name === 'dashboard'"/>
   </div>
 </template>
 
 <script setup lang="ts">
-import {computed, provide, ref} from "vue";
-import {useGrimoireStore} from "../../stores/grimoire.ts";
+import { provide, ref} from "vue";
 import SideNavigationWorkspace from "./SideNavigationWorkspace.vue";
+import { useRoute } from 'vue-router';
 
-const grimoireStore = useGrimoireStore();
-
-const viewType = computed(() => {
-  return grimoireStore.getCurrentViewType;
-});
+const route =  useRoute();
 
 const navOpen = ref<boolean>(false);
 provide('sidenavOpen', navOpen);
