@@ -14,8 +14,6 @@ export function useFinishSetup() {
             if (configCreatedSuccessfully) {
                 grimoireStore.setInitialSetupDone();
 
-                console.log(router);
-
                 await router.push({ name: 'dashboard' });
             }
         }
