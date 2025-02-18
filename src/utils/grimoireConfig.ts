@@ -1,4 +1,5 @@
-import type { WorkspaceConfig } from '../types';
+import { initJsonFile, readJsonFile, writeJsonFile } from "./fileSystem.ts";
+import type {WorkspaceConfig} from '../types';
 
 export const workspaceBaseConfig: WorkspaceConfig = {
     workspaceTitle: 'My Workspace',
@@ -7,17 +8,7 @@ export const workspaceBaseConfig: WorkspaceConfig = {
 
 export async function initConfig(workspaceHandle: FileSystemDirectoryHandle): Promise<boolean> {
     try {
-        const loadedConfig = await readConfig(workspaceHandle);
-        let config: WorkspaceConfig = workspaceBaseConfig;
-
-        if (loadedConfig) {
-            config = mergeConfig(config, loadedConfig);
-        }
-
-        // write the config
-        await writeConfig(workspaceHandle, config);
-
-        return true;
+        return await initJsonFile(workspaceHandle, '', 'grimoire.json', workspaceBaseConfig);
     } catch(error) {
         return false;
     }
@@ -25,13 +16,10 @@ export async function initConfig(workspaceHandle: FileSystemDirectoryHandle): Pr
 
 export async function readConfig(workspaceHandle: FileSystemDirectoryHandle): Promise<false|WorkspaceConfig> {
     try {
-        const configName = 'grimoire.json';
-        const configFileHandle = await workspaceHandle.getFileHandle(configName, { create: true });
-        const configFile = await configFileHandle.getFile();
+        const config = await readJsonFile(workspaceHandle, '', 'grimoire.json');
 
-        if (configFile.size > 0 && configFile.type === 'application/json') {
-            const configContent = await configFile.text();
-            return JSON.parse(configContent) as WorkspaceConfig;
+        if (config) {
+            return config as WorkspaceConfig;
         }
 
         return false;
@@ -42,18 +30,8 @@ export async function readConfig(workspaceHandle: FileSystemDirectoryHandle): Pr
 
 export async function writeConfig(workspaceHandle: FileSystemDirectoryHandle, config: WorkspaceConfig): Promise<boolean> {
     try {
-        const configName = 'grimoire.json';
-        const configFileHandle = await workspaceHandle.getFileHandle(configName, { create: true });
-        const writable = await configFileHandle.createWritable();
-        await writable.write(JSON.stringify(config, null, 2));
-        await writable.close();
-
-        return true;
+        return await writeJsonFile(workspaceHandle, '', 'grimoire.json', config);
     } catch(error) {
         return false;
     }
-}
-
-function mergeConfig(obj1: WorkspaceConfig, obj2: WorkspaceConfig): WorkspaceConfig {
-    return structuredClone({ ...obj1, ...obj2 });
 }

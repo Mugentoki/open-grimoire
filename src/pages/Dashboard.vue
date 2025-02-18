@@ -41,7 +41,7 @@ import PageContainer from "../components/common/PageContainer.vue";
 import Popup from "../components/common/Popup.vue";
 import TextAreaInput from "../components/form/TextAreaInput.vue";
 import TextInput from "../components/form/TextInput.vue";
-import { projectBaseConfig } from "../utils/projectConfig.ts";
+import { projectBaseConfig, initProjectConfig } from "../utils/projectConfig.ts";
 import type { ProjectConfig } from "../types";
 
 const grimoireStore = useGrimoireStore();
@@ -68,8 +68,13 @@ const hideCreateProject = () => {
   showCreateProject.value = false;
 }
 
-const createProject = ()  => {
-  console.log(createProjectModel.value);
+const createProject = async ()  => {
+  const workspaceHandle = grimoireStore.getWorkspaceDirectoryHandle;
+  if (workspaceHandle) {
+    await initProjectConfig(workspaceHandle, createProjectModel.value);
+  }
+
+  hideCreateProject();
 }
 </script>
 
