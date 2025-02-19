@@ -80,6 +80,17 @@ const createProject = async ()  => {
 
   hideCreateProject();
 }
+
+async function monitorFileChanges() {
+  requestIdleCallback(async () => {
+       setTimeout(async () => {
+         console.log("Checking for file changes");
+         await grimoireStore.loadProjects();
+         await monitorFileChanges();
+       }, 10000);
+  });
+}
+monitorFileChanges();
 </script>
 
 <style lang="scss">

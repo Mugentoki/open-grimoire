@@ -63,18 +63,24 @@ export const useGrimoireStore = defineStore('grimoire', () => {
     async function loadProjects() {
         if (workspaceDirectoryHandle.value) {
             const newProjects = await loadAllProjects(workspaceDirectoryHandle.value);
-
-            // Get the set of new project names
             const newProjectNames = new Set(newProjects.map(p => p.projectConfig.projectName));
 
-            // Remove projects that are no longer in newProjects
-            projects.value = projects.value.filter(p => newProjectNames.has(p.projectConfig.projectName));
+            // Remove projects that no longer exist (iterate in reverse to avoid index issues)
+            for (let i = projects.value.length - 1; i >= 0; i--) {
+                if (!newProjectNames.has(projects.value[i].projectConfig.projectName)) {
+                    projects.value.splice(i, 1); // Removes the item at index i
+                }
+            }
 
             // Add only new projects
             const existingProjectNames = new Set(projects.value.map(p => p.projectConfig.projectName));
             const uniqueNewProjects = newProjects.filter(p => !existingProjectNames.has(p.projectConfig.projectName));
 
             projects.value.push(...uniqueNewProjects);
+            
+            projects.value.sort((a, b) =>
+                a.projectConfig.projectName.localeCompare(b.projectConfig.projectName, undefined, { sensitivity: 'base' })
+            );
         }
     }
 
