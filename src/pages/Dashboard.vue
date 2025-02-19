@@ -4,7 +4,7 @@
       <TransitionGroup name="project">
         <div v-for="project in availableProjects" :key="project.projectConfig.projectName" class="project-item">
           <div class="project-item__title">{{ project.projectConfig.projectName }}</div>
-          <div class="project-item__description">{{ project.projectConfig.projectDescription }}</div>
+          <div class="project-item__description">{{ truncateProjectDescription(project.projectConfig.projectDescription) }}</div>
         </div>
       </TransitionGroup>
       <div class="project-item project-create" @click="showCreateProjectPopup">
@@ -81,6 +81,10 @@ const createProject = async ()  => {
   hideCreateProject();
 }
 
+const truncateProjectDescription = (description: string) => {
+  return description.length > 120 ? description.substring(0, 120) + "..." : description;
+}
+
 async function monitorFileChanges() {
   requestIdleCallback(async () => {
        setTimeout(async () => {
@@ -108,10 +112,30 @@ monitorFileChanges();
     color: var(--font-color-inactive);
     transition: all var(--base-transition);
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 
     &:hover {
       color: inherit;
       border-color: var(--font-color-base);
+    }
+
+    &__title {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+      hyphens: auto;
+      font-size: var(--font-size-large);
+      line-height: 1em;
+      margin-bottom: var(--spacing-small);
+      min-height: 57px;
+    }
+
+    &__description {
+      flex-grow: 1;
+      overflow: hidden;
     }
   }
 

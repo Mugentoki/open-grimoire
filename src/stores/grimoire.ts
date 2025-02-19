@@ -77,7 +77,7 @@ export const useGrimoireStore = defineStore('grimoire', () => {
             const uniqueNewProjects = newProjects.filter(p => !existingProjectNames.has(p.projectConfig.projectName));
 
             projects.value.push(...uniqueNewProjects);
-            
+
             projects.value.sort((a, b) =>
                 a.projectConfig.projectName.localeCompare(b.projectConfig.projectName, undefined, { sensitivity: 'base' })
             );
