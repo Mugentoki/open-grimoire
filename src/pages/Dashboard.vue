@@ -1,14 +1,12 @@
 <template>
   <PageContainer>
     <div class="project-list">
-      <div class="project-item"></div>
-      <div class="project-item"></div>
-      <div class="project-item"></div>
-      <div class="project-item"></div>
-      <div class="project-item"></div>
-      <div class="project-item"></div>
-      <div class="project-item"></div>
-      <div class="project-item"></div>
+      <TransitionGroup name="project">
+        <div v-for="project in availableProjects" :key="project.projectConfig.projectName" class="project-item">
+          <div class="project-item__title">{{ project.projectConfig.projectName }}</div>
+          <div class="project-item__description">{{ project.projectConfig.projectDescription }}</div>
+        </div>
+      </TransitionGroup>
       <div class="project-item project-create" @click="showCreateProjectPopup">
         <span class="project-create__icon icon-square-plus"></span>
       </div>
@@ -36,7 +34,7 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
 import { useGrimoireStore } from "../stores/grimoire.ts";
-import { computed, ref } from "vue";
+import {computed, ref} from "vue";
 import PageContainer from "../components/common/PageContainer.vue";
 import Popup from "../components/common/Popup.vue";
 import TextAreaInput from "../components/form/TextAreaInput.vue";
@@ -45,9 +43,14 @@ import { projectBaseConfig, initProjectConfig } from "../utils/projectConfig.ts"
 import type { ProjectConfig } from "../types";
 
 const grimoireStore = useGrimoireStore();
+grimoireStore.loadProjects();
 
 const showWorkspaceSettings = computed(() => {
   return grimoireStore.getWorkspaceConfigPopupVisible;
+});
+
+const availableProjects = computed(() => {
+  return grimoireStore.getProjects;
 });
 
 const showCreateProject = ref<boolean>(false);
@@ -72,6 +75,7 @@ const createProject = async ()  => {
   const workspaceHandle = grimoireStore.getWorkspaceDirectoryHandle;
   if (workspaceHandle) {
     await initProjectConfig(workspaceHandle, createProjectModel.value);
+    await grimoireStore.loadProjects();
   }
 
   hideCreateProject();
@@ -91,7 +95,7 @@ const createProject = async ()  => {
     border-radius: var(--border-radius-medium);
     padding: var(--base-spacing);
     color: var(--font-color-inactive);
-    transition: color var(--base-transition), border-color var(--base-transition);
+    transition: all var(--base-transition);
     cursor: pointer;
 
     &:hover {

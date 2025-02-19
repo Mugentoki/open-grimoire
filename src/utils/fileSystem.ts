@@ -49,11 +49,7 @@ export async function writeJsonFile(workspaceHandle: FileSystemDirectoryHandle, 
     }
 }
 
-function mergeObjects(obj1: object, obj2: object): object {
-    return structuredClone({ ...obj1, ...obj2 });
-}
-
-async function getNestedDirectoryHandle(rootHandle: FileSystemDirectoryHandle, path: string): Promise<FileSystemDirectoryHandle> {
+export async function getNestedDirectoryHandle(rootHandle: FileSystemDirectoryHandle, path: string): Promise<FileSystemDirectoryHandle> {
     const folders = path.split('/'); // Split the path into parts
     let currentHandle = rootHandle;
 
@@ -64,4 +60,8 @@ async function getNestedDirectoryHandle(rootHandle: FileSystemDirectoryHandle, p
     }
 
     return currentHandle;
+}
+
+function mergeObjects(obj1: object, obj2: object): object {
+    return structuredClone({ ...obj1, ...obj2 });
 }

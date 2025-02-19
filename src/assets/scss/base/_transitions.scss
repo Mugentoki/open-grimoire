@@ -1,9 +1,19 @@
+// Popup appear / disappear
 .popup-enter-from,
 .popup-leave-to {
   opacity: 0;
 }
-
 .popup-enter-active,
 .popup-leave-active {
   transition: opacity var(--base-transition);
+}
+
+// List element appear / disappear
+.project-enter-from,
+.project-leave-to {
+  opacity: 0;
+}
+.project-enter-to,
+.project-leave-from {
+    opacity: 1;
 }

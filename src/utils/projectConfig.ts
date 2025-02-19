@@ -1,5 +1,6 @@
-import type {ProjectConfig} from '../types';
-import {initJsonFile, readJsonFile, writeJsonFile} from "./fileSystem.ts";
+import {initJsonFile, readJsonFile, writeJsonFile, getNestedDirectoryHandle} from "./fileSystem.ts";
+import
+    type {ProjectConfig, ProjectEntry} from '../types';
 
 export const projectBaseConfig: ProjectConfig = {
     projectName: "",
@@ -34,5 +35,29 @@ export async function writeProjectConfig(workspaceHandle: FileSystemDirectoryHan
         return await writeJsonFile(workspaceHandle, filePath, 'project.json', config);
     } catch(error) {
         return false;
+    }
+}
+
+export async function loadAllProjects(workspaceHandle: FileSystemDirectoryHandle): Promise<Array<ProjectEntry>> {
+    try {
+        const projects: Array<ProjectEntry> = [];
+        const entries = await workspaceHandle.values();
+
+        for await (const entry of entries) {
+            if (entry.kind === 'directory') {
+                const projectConfig: false|ProjectConfig = await readProjectConfig(workspaceHandle, entry.name);
+                const projectDirectoryHandle: FileSystemDirectoryHandle = await getNestedDirectoryHandle(workspaceHandle, entry.name);
+                if (projectConfig) {
+                    projects.push({
+                        projectConfig: projectConfig,
+                        projectDirectoryHandle: projectDirectoryHandle
+                    });
+                }
+            }
+        }
+
+        return projects;
+    } catch(error) {
+        return [];
     }
 }
