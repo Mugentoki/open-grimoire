@@ -2,10 +2,7 @@
   <PageContainer>
     <div class="project-list">
       <TransitionGroup name="project">
-        <div v-for="project in availableProjects" :key="project.projectConfig.projectName" class="project-item">
-          <div class="project-item__title">{{ project.projectConfig.projectName }}</div>
-          <div class="project-item__description">{{ truncateProjectDescription(project.projectConfig.projectDescription) }}</div>
-        </div>
+        <ProjectCard v-for="project in availableProjects" :key="project.projectConfig.projectName" :projectConfig="project.projectConfig" />
       </TransitionGroup>
       <div class="project-item project-create" @click="showCreateProjectPopup">
         <span class="project-create__icon icon-square-plus"></span>
@@ -41,6 +38,7 @@ import TextAreaInput from "../components/form/TextAreaInput.vue";
 import TextInput from "../components/form/TextInput.vue";
 import { projectBaseConfig, initProjectConfig } from "../utils/projectConfig.ts";
 import type { ProjectConfig } from "../types";
+import ProjectCard from "../components/project/ProjectCard.vue";
 
 const grimoireStore = useGrimoireStore();
 grimoireStore.loadProjects();
@@ -55,7 +53,6 @@ const availableProjects = computed(() => {
 
 const showCreateProject = ref<boolean>(false);
 const createProjectModel = ref<ProjectConfig>({...projectBaseConfig});
-
 const { workspaceConfig } = storeToRefs(grimoireStore);
 
 const hideWorkspaceSettings = () => {
@@ -81,10 +78,6 @@ const createProject = async ()  => {
   hideCreateProject();
 }
 
-const truncateProjectDescription = (description: string) => {
-  return description.length > 120 ? description.substring(0, 120) + "..." : description;
-}
-
 async function monitorFileChanges() {
   requestIdleCallback(async () => {
        setTimeout(async () => {
@@ -103,41 +96,6 @@ monitorFileChanges();
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: var(--base-spacing);
 
-  .project-item {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    border: 2px solid var(--base-border-color);
-    border-radius: var(--border-radius-medium);
-    padding: var(--base-spacing);
-    color: var(--font-color-inactive);
-    transition: all var(--base-transition);
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-
-    &:hover {
-      color: inherit;
-      border-color: var(--font-color-base);
-    }
-
-    &__title {
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
-      overflow: hidden;
-      hyphens: auto;
-      font-size: var(--font-size-large);
-      line-height: 1em;
-      margin-bottom: var(--spacing-small);
-      min-height: 57px;
-    }
-
-    &__description {
-      flex-grow: 1;
-      overflow: hidden;
-    }
-  }
 
   .project-create {
     border: none;
